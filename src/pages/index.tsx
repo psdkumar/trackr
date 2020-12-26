@@ -32,6 +32,7 @@ export default function Home() {
                 {activities.map((activity, index) => (
                   <ActivityList.Item
                     key={index}
+                    id={activity.id}
                     title={activity.title}
                     description={activity.description}
                   />

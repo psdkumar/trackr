@@ -1,3 +1,4 @@
+import { Activity } from './../types/index'
 import { useQuery } from 'react-query'
 
 export function useActivities() {
@@ -5,7 +6,12 @@ export function useActivities() {
     fetch('/api/fauna/fetch-activities').then((res) => res.json())
   )
 
-  const activities = response?.data?.map((x) => x.data) ?? []
+  const activities: Activity[] =
+    response?.data?.map((activity) => ({
+      id: activity.ref['@ref'].id,
+      title: activity.data.title,
+      description: activity.data.description,
+    })) ?? []
 
   return { activities, isLoading, error }
 }
