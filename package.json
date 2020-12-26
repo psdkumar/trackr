@@ -17,11 +17,14 @@
     "@headlessui/react": "0.2.0",
     "@prisma/client": "2.12.1",
     "classnames": "2.2.6",
+    "coderplex-ui": "^0.0.43",
+    "faunadb": "^4.0.0",
     "next": "10.0.3",
     "next-auth": "3.1.0",
+    "phosphor-react": "^1.1.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-query": "2.26.3",
+    "react-query": "^3.5.5",
     "tabler-icons": "1.35.0"
   },
   "devDependencies": {

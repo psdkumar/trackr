@@ -3,7 +3,11 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   purge: {
-    content: ['./src/**/*.{js,ts,jsx,tsx}'],
+    content: [
+      './src/**/*.{js,ts,jsx,tsx}',
+      './node_modules/coderplex-ui/**/*.js',
+    ],
+    // enabled: true,
   },
   darkMode: false,
   theme: {
@@ -14,7 +18,14 @@ module.exports = {
     },
     extend: {
       colors: {
-        violet: colors.violet,
+        blueGray: colors.blueGray,
+        brand: colors.indigo,
+        success: colors.green,
+        danger: colors.red,
+        warning: colors.yellow,
+        info: colors.blue,
+        normal: colors.gray,
+        lightSurface: 'hsl(210, 20%, 98%)',
       },
     },
   },
