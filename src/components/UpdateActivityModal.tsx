@@ -31,6 +31,7 @@ export default function UpdateActivityModal({
     {
       onSuccess: () => {
         queryClient.refetchQueries(['activity', id])
+        queryClient.refetchQueries('activities')
       },
     }
   )

@@ -27,6 +27,7 @@ export default function DeleteActivityModal({
     {
       onSuccess: () => {
         queryClient.refetchQueries(['activity', id])
+        queryClient.refetchQueries('activities')
         router.push('/')
       },
     }
