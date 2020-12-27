@@ -81,22 +81,23 @@ export default function DeleteActivityModal({
               </div>
             </div>
           </div>
-          <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-            <Button
-              variant="solid"
-              variantColor="danger"
-              className="m-1"
-              onClick={() => setIsOpen(false)}
-            >
-              Delete
-            </Button>
+          {/* <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse"> */}
+          <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
             <Button
               variant="outlined"
               variantColor="normal"
-              className="m-1"
+              className="m-1 flex justify-center"
               onClick={() => setIsOpen(false)}
             >
               Cancel
+            </Button>
+            <Button
+              variant="solid"
+              variantColor="danger"
+              className="m-1 flex justify-center"
+              onClick={() => setIsOpen(false)}
+            >
+              Delete
             </Button>
           </div>
         </Transition>
