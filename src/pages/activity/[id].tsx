@@ -1,13 +1,18 @@
 import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useQuery } from 'react-query'
 import { IconLoader } from 'tabler-icons'
 import ActivityHeading from '../../components/ActivityHeading'
-import { useActivity } from '../../hooks/useActivities'
+import Error from 'next/error'
 
 export default function ActivityDetails() {
   const router = useRouter()
-  const { activity, isLoading, error } = useActivity(router.query.id as string)
+  const id = router.query.id
+  const { isLoading, data: response } = useQuery(
+    ['activity', router.query.id],
+    () => fetch(`/api/fauna/fetch-activity?id=${id}`).then((res) => res.json())
+  )
 
   if (isLoading) {
     return (
@@ -17,9 +22,12 @@ export default function ActivityDetails() {
     )
   }
 
-  if (error) {
-    return <p>Something went wrong!!!</p>
+  if (!response.ok) {
+    console.dir(response)
+    return <Error statusCode={response.statusCode} />
   }
+
+  const activity = response.activity
 
   return (
     <>

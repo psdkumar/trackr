@@ -11,9 +11,8 @@ const FaunaCreateHandler: NextApiHandler = async (
   res: NextApiResponse
 ) => {
   try {
-    const { title, description } = req.body
     const response = await client.query(
-      q.Create(q.Collection('activities'), { data: { title, description } })
+      q.Delete(q.Ref(q.Collection('activities'), req.query.id))
     )
     res.status(201).json(response)
   } catch (error) {

@@ -17,7 +17,7 @@ export default function CreateActivityModal({
   const { isError, isLoading, isSuccess, mutate, data: response } = useMutation(
     'create_activity',
     () =>
-      fetch('/api/fauna/create', {
+      fetch('/api/fauna/create-activity', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

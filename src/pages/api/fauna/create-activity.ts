@@ -11,11 +11,18 @@ const FaunaCreateHandler: NextApiHandler = async (
   res: NextApiResponse
 ) => {
   try {
-    const { id, title, description } = req.body
+    const { title, description } = req.body
     const response = await client.query(
-      q.Update(q.Ref(q.Collection('activities'), id), {
-        data: { title: title, description: description },
-      })
+      q.Let(
+        {
+          activityDoc: q.Create(q.Collection('activities'), {
+            data: { title, description },
+          }),
+        },
+        {
+          id: q.Select(['ref', 'id'], q.Var('activityDoc')),
+        }
+      )
     )
     res.status(201).json(response)
   } catch (error) {

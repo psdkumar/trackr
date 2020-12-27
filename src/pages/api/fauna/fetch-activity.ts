@@ -12,12 +12,24 @@ const FaunaCreateHandler: NextApiHandler = async (
 ) => {
   try {
     const response = await client.query(
-      q.Get(q.Ref(q.Collection('activities'), req.query.id))
+      q.Let(
+        {
+          activityDoc: q.Get(q.Ref(q.Collection('activities'), req.query.id)),
+        },
+        {
+          id: q.Select(['ref', 'id'], q.Var('activityDoc')),
+          title: q.Select(['data', 'title'], q.Var('activityDoc')),
+          description: q.Select(['data', 'description'], q.Var('activityDoc')),
+        }
+      )
     )
-    res.status(201).json(response)
+    res.status(200).json({ activity: response, ok: true })
   } catch (error) {
-    console.error(error)
-    res.status(500).json({ message: 'Something went wrong!!!' })
+    res.status(error.requestResult.statusCode).json({
+      message: 'Something went wrong!!!',
+      statusCode: error.requestResult.statusCode,
+      ok: false,
+    })
   }
 }
 

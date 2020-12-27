@@ -1,10 +1,13 @@
 import Head from 'next/head'
 import React from 'react'
+import { useQuery } from 'react-query'
 import ActivityList from '../components/ActivityList'
-import { useActivities } from '../hooks/useActivities'
 
 export default function Home() {
-  const { activities, isLoading, error } = useActivities()
+  const { isLoading, error, data: response } = useQuery('activities', () =>
+    fetch('/api/fauna/fetch-activities').then((res) => res.json())
+  )
+  const activities = response?.data ?? []
 
   if (error) {
     return <p>Something went wrong !!!</p>

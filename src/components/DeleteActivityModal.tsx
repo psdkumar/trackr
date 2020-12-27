@@ -1,13 +1,37 @@
 import { Transition } from '@headlessui/react'
 import { Button } from 'coderplex-ui'
+import { Router, useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 
 export default function DeleteActivityModal({
   isOpen,
   setIsOpen,
+  id,
 }: {
   isOpen: boolean
   setIsOpen: (a: boolean) => void
+  id: string
 }) {
+  const queryClient = useQueryClient()
+  const router = useRouter()
+  const { mutate } = useMutation(
+    'delete_activity',
+    () =>
+      fetch(`/api/fauna/delete-activity?id=${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries(['activity', id])
+        router.push('/')
+      },
+    }
+  )
+
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -86,8 +110,11 @@ export default function DeleteActivityModal({
               variant="solid"
               variantColor="danger"
               className="m-1 flex justify-center sm:col-start-2"
-              onClick={() => setIsOpen(false)}
               isFullWidth={true}
+              onClick={() => {
+                mutate()
+                setIsOpen(false)
+              }}
             >
               Delete
             </Button>

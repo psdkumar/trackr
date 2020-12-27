@@ -14,7 +14,22 @@ const FaunaCreateHandler: NextApiHandler = async (
     const response = await client.query(
       q.Map(
         q.Paginate(q.Documents(q.Collection('activities'))),
-        q.Lambda('activityRef', q.Get(q.Var('activityRef')))
+        q.Lambda(
+          'activityRef',
+          q.Let(
+            {
+              activityDoc: q.Get(q.Var('activityRef')),
+            },
+            {
+              id: q.Select(['ref', 'id'], q.Var('activityDoc')),
+              title: q.Select(['data', 'title'], q.Var('activityDoc')),
+              description: q.Select(
+                ['data', 'description'],
+                q.Var('activityDoc')
+              ),
+            }
+          )
+        )
       )
     )
     res.status(201).json(response)

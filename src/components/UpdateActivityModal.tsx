@@ -16,20 +16,21 @@ export default function UpdateActivityModal({
   const queryClient = useQueryClient()
   const [title, setTitle] = useState(activity.title)
   const [description, setDescription] = useState(activity.description)
+  const id = activity.id
 
   const { isError, isLoading, isSuccess, mutate, data: response } = useMutation(
-    'create_activity',
+    ['update_activity', id],
     () =>
-      fetch('/api/fauna/create', {
+      fetch('/api/fauna/update-activity', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({ id, title, description }),
       }),
     {
       onSuccess: () => {
-        queryClient.refetchQueries('activities')
+        queryClient.refetchQueries(['activity', id])
       },
     }
   )

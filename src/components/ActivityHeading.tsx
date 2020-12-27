@@ -23,6 +23,7 @@ export default function ActivityHeading({ activity }: { activity: Activity }) {
         <DeleteActivityModal
           isOpen={openDeleteActivityModal}
           setIsOpen={setOpenDeleteActivityModal}
+          id={activity.id}
         />
       )}
 
