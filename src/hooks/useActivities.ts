@@ -1,6 +1,28 @@
 import { Activity } from './../types/index'
 import { useQuery } from 'react-query'
 
+export function useActivities() {
+  const url = '/api/fauna/fetch-activities'
+
+  const { isLoading, error, data: response } = useQuery('activities', () =>
+    fetch(url).then((res) => res.json())
+  )
+
+  let activities: Activity[] = []
+
+  if (isLoading || error) {
+    return { activities, isLoading, error }
+  }
+
+  activities = response.data.map((activity) => ({
+    id: activity.ref['@ref'].id,
+    title: activity.data.title,
+    description: activity.data.description,
+  }))
+
+  return { activities, isLoading, error }
+}
+
 export function useActivity(id: string) {
   const url = `/api/fauna/fetch-activity?id=${id}`
 
@@ -24,24 +46,26 @@ export function useActivity(id: string) {
   return { activity, isLoading, error }
 }
 
-export function useActivities() {
-  const url = '/api/fauna/fetch-activities'
+export function useUpdateActivity(activity1: Activity) {
+  const url = '/api/fauna/update-activity'
 
-  const { isLoading, error, data: response } = useQuery('activities', () =>
-    fetch(url).then((res) => res.json())
+  const { isLoading, error, data: response } = useQuery(
+    ['updateActivity', activity1],
+    () => fetch(url).then((res) => res.json())
   )
 
-  let activities: Activity[] = []
+  let activity: Activity
 
   if (isLoading || error) {
-    return { activities, isLoading, error }
+    return { activity, isLoading, error }
   }
 
-  activities = response.data.map((activity) => ({
-    id: activity.ref['@ref'].id,
-    title: activity.data.title,
-    description: activity.data.description,
-  }))
+  let res = JSON.parse(JSON.stringify(response))
+  activity = {
+    id: res.ref['@ref'].id,
+    title: res.data.title,
+    description: res.data.description,
+  }
 
-  return { activities, isLoading, error }
+  return { activity, isLoading, error }
 }

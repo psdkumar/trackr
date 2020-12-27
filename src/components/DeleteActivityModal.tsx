@@ -10,7 +10,7 @@ export default function DeleteActivityModal({
 }) {
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
-      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <Transition
           show={isOpen}
           enter="ease-out duration-300"
@@ -81,23 +81,24 @@ export default function DeleteActivityModal({
               </div>
             </div>
           </div>
-          {/* <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse"> */}
           <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+            <Button
+              variant="solid"
+              variantColor="danger"
+              className="m-1 flex justify-center sm:col-start-2"
+              onClick={() => setIsOpen(false)}
+              isFullWidth={true}
+            >
+              Delete
+            </Button>
             <Button
               variant="outlined"
               variantColor="normal"
               className="m-1 flex justify-center"
               onClick={() => setIsOpen(false)}
+              isFullWidth={true}
             >
               Cancel
-            </Button>
-            <Button
-              variant="solid"
-              variantColor="danger"
-              className="m-1 flex justify-center"
-              onClick={() => setIsOpen(false)}
-            >
-              Delete
             </Button>
           </div>
         </Transition>

@@ -34,7 +34,9 @@ export default function ActivityDetails() {
         <h2 className="py-5 text-sm font-medium uppercase text-brand-600">
           Activity Details
         </h2>
-        <pre>{JSON.stringify({ activity }, null, 2)}</pre>
+        <pre className="overflow-scroll">
+          {JSON.stringify({ activity }, null, 2)}
+        </pre>
         <br />
         <Link href="/">
           <a className="text-brand-600 hover:underline">← Back to home</a>
