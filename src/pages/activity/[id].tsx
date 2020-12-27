@@ -2,6 +2,7 @@ import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
 import Link from 'next/link'
 import { IconLoader } from 'tabler-icons'
+import ActivityHeading from '../../components/ActivityHeading'
 import { useActivity } from '../../hooks/useActivities'
 
 export default function ActivityDetails() {
@@ -26,6 +27,10 @@ export default function ActivityDetails() {
         <title>Trackr - Activity</title>
       </Head>
       <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
+        <div className="mt-5">
+          <ActivityHeading activity={activity} />
+        </div>
+
         <h2 className="py-5 text-sm font-medium uppercase text-brand-600">
           Activity Details
         </h2>
