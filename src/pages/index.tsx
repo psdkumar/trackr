@@ -5,11 +5,6 @@ import { useActivities } from '../hooks/useActivities'
 
 export default function Home() {
   const { activities, isLoading, error } = useActivities()
-  // const { activities, isLoading, error } = {
-  //   activities: [],
-  //   isLoading: false,
-  //   error: false,
-  // }
 
   if (isLoading) {
     return <p>Loading your activities...</p>

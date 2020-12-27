@@ -40,12 +40,9 @@ function Activity({
           </div>
           <div className="flex items-center justify-between flex-1 truncate bg-white border-t border-b border-r border-gray-200 rounded-r-md">
             <div className="flex-1 px-4 py-2 text-sm truncate">
-              <a
-                href="/"
-                className="font-medium text-gray-900 hover:text-gray-600"
-              >
+              <p className="font-medium text-gray-900 hover:text-gray-600">
                 {title}
-              </a>
+              </p>
               <p className="text-gray-500">{description}</p>
             </div>
             <div className="flex-shrink-0 pr-2">
