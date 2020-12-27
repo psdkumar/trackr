@@ -1,15 +1,30 @@
 import { Button, Menu } from 'coderplex-ui'
-import {
-  DotsThreeVertical,
-  DotsThreeOutlineVertical,
-  Pencil,
-  Trash,
-} from 'phosphor-react'
+import { DotsThreeVertical, Pencil, Trash } from 'phosphor-react'
+import { useState } from 'react'
+import { IconEdit } from 'tabler-icons'
 import { Activity } from '../types'
+import DeleteActivityModal from './DeleteActivityModal'
+import EditActivityModal from './EditActivityModal'
 
 export default function ActivityHeading({ activity }: { activity: Activity }) {
+  const [openEditActivityModal, setOpenEditActivityModal] = useState(false)
+  const [openDeleteActivityModal, setOpenDeleteActivityModal] = useState(false)
+
   return (
     <>
+      {openEditActivityModal && (
+        <EditActivityModal
+          isOpen={openEditActivityModal}
+          setIsOpen={setOpenEditActivityModal}
+          activity={activity}
+        />
+      )}
+      {openDeleteActivityModal && (
+        <DeleteActivityModal
+          isOpen={openDeleteActivityModal}
+          setIsOpen={setOpenDeleteActivityModal}
+        />
+      )}
       <div className="md:flex md:items-center md:justify-between md:space-x-5">
         <div className="flex items-start space-x-5">
           <div className="flex-shrink-0">
@@ -34,7 +49,11 @@ export default function ActivityHeading({ activity }: { activity: Activity }) {
           </div>
         </div>
         <div className="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-          <Button variant="outlined" variantColor="brand">
+          <Button
+            variant="outlined"
+            variantColor="brand"
+            leadingIcon={IconEdit}
+          >
             Log your activity
           </Button>
           <div className="flex justify-center items-center">
@@ -49,7 +68,7 @@ export default function ActivityHeading({ activity }: { activity: Activity }) {
             >
               <Menu.Item
                 onClick={() => {
-                  console.log('Edited')
+                  setOpenEditActivityModal(true)
                 }}
               >
                 <Pencil className="w-5 h-5 mr-3 text-info-600" />
@@ -57,7 +76,7 @@ export default function ActivityHeading({ activity }: { activity: Activity }) {
               </Menu.Item>
               <Menu.Item
                 onClick={() => {
-                  console.log('Deleted')
+                  setOpenDeleteActivityModal(true)
                 }}
               >
                 <Trash className="w-5 h-5 mr-3 text-danger-600" />

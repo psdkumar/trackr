@@ -2,17 +2,20 @@ import { Transition } from '@headlessui/react'
 import { useState } from 'react'
 import { Button, Input, TextArea } from 'coderplex-ui'
 import { useMutation, useQueryClient } from 'react-query'
+import { Activity } from '../types'
 
-export default function CreateActivityModal({
+export default function EditActivityModal({
   isOpen,
   setIsOpen,
+  activity,
 }: {
   isOpen: boolean
   setIsOpen: (a: boolean) => void
+  activity: Activity
 }) {
   const queryClient = useQueryClient()
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
+  const [title, setTitle] = useState(activity.title)
+  const [description, setDescription] = useState(activity.description)
 
   const { isError, isLoading, isSuccess, mutate, data: response } = useMutation(
     'create_activity',
@@ -75,7 +78,7 @@ export default function CreateActivityModal({
                   className="text-lg font-medium leading-6 text-center text-gray-900"
                   id="modal-headline"
                 >
-                  Create a new activity
+                  Update the activity
                 </h3>
                 <div className="mt-2">
                   <Input
@@ -116,7 +119,7 @@ export default function CreateActivityModal({
                   setIsOpen(false)
                 }}
               >
-                Create
+                Update
               </Button>
             </div>
           </Transition>
