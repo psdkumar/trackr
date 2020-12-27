@@ -1,8 +1,7 @@
 import { Transition } from '@headlessui/react'
 import { Button } from 'coderplex-ui'
-import { Router, useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { useRouter } from 'next/router'
+import { useMutation, useQueryClient } from 'react-query'
 
 export default function DeleteActivityModal({
   isOpen,
