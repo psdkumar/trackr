@@ -168,6 +168,11 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@badrap/bar-of-progress@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@badrap/bar-of-progress/-/bar-of-progress-0.1.1.tgz#f9b3023b50c182bbace984c6384244cc2a5f4f2c"
+  integrity sha512-71I3n/S8x9a/KW8JMboNRlDz0TLOI0YEjBjw3OxrwSzoJ9EZd46eaS5IIKn9XfBouJB3Kquzih/KrlvZtj2w/Q==
+
 "@eslint/eslintrc@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.2.1.tgz#f72069c330461a06684d119384435e12a5d76e3c"
