@@ -5,14 +5,36 @@ import { useQuery } from 'react-query'
 import { IconLoader } from 'tabler-icons'
 import ActivityHeading from '../../components/ActivityHeading'
 import Error from 'next/error'
+import ActivityLogHeading from '../../components/ActivityLogHeading'
+import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
+import useBreakpoint from 'use-breakpoint'
+
+const BREAKPOINTS = {
+  xs: 0,
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  '2xl': 1536,
+}
 
 export default function ActivityDetails() {
+  const { breakpoint, maxWidth, minWidth } = useBreakpoint(BREAKPOINTS, 'xs')
   const router = useRouter()
   const id = router.query.id
   const { isLoading, data: response } = useQuery(
     ['activity', router.query.id],
     () => fetch(`/api/fauna/fetch-activity?id=${id}`).then((res) => res.json())
   )
+  const data = [
+    { date: '2020-12-22', dheeraj: 1, teja: 1, amt: 2400 },
+    { date: '2020-12-23', dheeraj: 2, teja: 2, amt: 2400 },
+    { date: '2020-12-24', dheeraj: 2, teja: 3, amt: 2400 },
+    { date: '2020-12-25', dheeraj: 3, teja: 4, amt: 2400 },
+    { date: '2020-12-26', dheeraj: 3, teja: 5, amt: 2400 },
+    { date: '2020-12-27', dheeraj: 4, teja: 6, amt: 2400 },
+    { date: '2020-12-28', dheeraj: 5, teja: 7, amt: 2400 },
+  ]
 
   if (isLoading) {
     return (
@@ -29,6 +51,8 @@ export default function ActivityDetails() {
 
   const activity = response.activity
 
+  console.log({ breakpoint, maxWidth, minWidth })
+
   return (
     <>
       <Head>
@@ -42,6 +66,38 @@ export default function ActivityDetails() {
         <h2 className="py-5 text-sm font-medium uppercase text-brand-600">
           Activity Details
         </h2>
+        <div className="bg-white">
+          <ActivityLogHeading activity={activity} />
+          <div className="overflow-scroll border rounded-b-md border-gray-200">
+            <LineChart
+              width={
+                breakpoint === 'xs' ? 400 : breakpoint === 'sm' ? 600 : 800
+              }
+              height={breakpoint === 'xs' ? 400 : 500}
+              data={data}
+              margin={{ top: 5, right: 30, bottom: 5, left: 0 }}
+              style={{ width: '100%', height: '100%' }}
+            >
+              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Line
+                type="monotone"
+                dataKey="dheeraj"
+                className="text-brand-500"
+                stroke="currentColor"
+              ></Line>
+              <Line
+                type="monotone"
+                dataKey="teja"
+                className="text-red-500"
+                stroke="currentColor"
+              ></Line>
+            </LineChart>
+          </div>
+        </div>
+        <br />
         <pre className="overflow-scroll">
           {JSON.stringify({ activity }, null, 2)}
         </pre>
