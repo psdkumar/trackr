@@ -130,6 +130,7 @@ export default function ActivityDetails() {
               data={chartData}
               margin={{ top: 5, right: 30, bottom: 5, left: 0 }}
               style={{ width: '100%', height: '100%' }}
+              className="mt-5"
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" />
@@ -156,10 +157,6 @@ export default function ActivityDetails() {
             </LineChart>
           </div>
         </div>
-        <br />
-        <pre className="overflow-scroll">
-          {JSON.stringify({ activity }, null, 2)}
-        </pre>
         <br />
         <Link href="/">
           <a className="text-brand-600 hover:underline">← Back to home</a>
