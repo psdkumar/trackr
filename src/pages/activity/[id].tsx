@@ -112,13 +112,14 @@ export default function ActivityDetails() {
         <title>Trackr - Activity</title>
       </Head>
       <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
-        <div className="mt-5">
+        <h1 className="py-5 text-xl text-center uppercase font-semibold text-brand-600">
+          Activity Details
+        </h1>
+
+        <div className="mb-5">
           <ActivityHeading activity={activity} />
         </div>
 
-        <h2 className="py-5 text-sm font-medium uppercase text-brand-600">
-          Activity Details
-        </h2>
         <div className="bg-white">
           <ActivityLogHeading activity={activity} />
           <div className="overflow-scroll border rounded-b-md border-gray-200">
