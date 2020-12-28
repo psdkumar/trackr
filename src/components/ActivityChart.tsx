@@ -3,9 +3,15 @@ import { useQuery } from 'react-query'
 import { Activity } from '../types'
 import ActivityChartSingle from './ActivityChartSingle'
 
-export default function ActivityChart({ activity }: { activity: Activity }) {
-  const [startDate, setStartDate] = useState(new Date('2020-12-01'))
-  const [endDate, setEndDate] = useState(new Date('2020-12-31'))
+export default function ActivityChart({
+  activity,
+  startDate,
+  endDate,
+}: {
+  activity: Activity
+  startDate: Date
+  endDate: Date
+}) {
   const [activityChartData, setActivityChartData] = useState([])
   const [allDatesInRange, setallDatesInRange] = useState([])
   const { isLoading, data: response, error } = useQuery(
