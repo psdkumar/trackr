@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useQuery } from 'react-query'
 import { IconLoader } from 'tabler-icons'
-import ActivityHeading from '../../components/ActivityHeading'
+import ActivityHeading from '../../components/ActivityHeader'
 import Error from 'next/error'
 import ActivityLogHeading from '../../components/ActivityLogHeading'
 import {

@@ -38,9 +38,6 @@ export default function ActivityChart({ activity }: { activity: Activity }) {
 
   return (
     <>
-      <h2 className="text-base font-medium text-gray-700">
-        Cumulative Activity Tracking Chart
-      </h2>
       <ActivityChartSingle activityChartData={activityChartData} />
     </>
   )

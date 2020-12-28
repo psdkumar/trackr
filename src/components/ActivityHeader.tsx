@@ -6,7 +6,7 @@ import { Activity } from '../types'
 import DeleteActivityModal from './DeleteActivityModal'
 import UpdateActivityModal from './UpdateActivityModal'
 
-export default function ActivityHeading({ activity }: { activity: Activity }) {
+export default function ActivityHeader({ activity }: { activity: Activity }) {
   const [openUpdateActivityModal, setOpenUpdateActivityModal] = useState(false)
   const [openDeleteActivityModal, setOpenDeleteActivityModal] = useState(false)
 
