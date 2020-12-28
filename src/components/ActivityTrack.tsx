@@ -1,10 +1,11 @@
 import ActivityChart from './ActivityChart'
-import { DateRangePicker, DateRange } from 'react-date-range'
+import { DateRangePicker } from 'react-date-range'
 import { useState } from 'react'
 import { addDays } from 'date-fns'
-import 'react-date-range/dist/styles.css' // main css file
-import 'react-date-range/dist/theme/default.css' // theme css file
+import 'react-date-range/dist/styles.css' // main css file for date range picker
+import 'react-date-range/dist/theme/default.css' // theme css file for date range picker
 import { Button } from 'coderplex-ui'
+import { ArrowClockwise, ChartLineUp } from 'phosphor-react'
 
 export default function ActivityTrack({ activity }) {
   const today = new Date()
@@ -33,17 +34,19 @@ export default function ActivityTrack({ activity }) {
           <Button
             variant="outlined"
             variantColor="brand"
+            leadingIcon={(props) => <ArrowClockwise {...props} weight="bold" />}
             onClick={() => {
               setState(defaultRange)
               setStartDate(defaultStartDate)
               setEndDate(defaultEndDate)
             }}
           >
-            Reset to default
+            Reset<span className="hidden sm:inline">&nbsp;to default</span>
           </Button>
           <Button
             variant="solid"
             variantColor="brand"
+            leadingIcon={(props) => <ChartLineUp {...props} weight="bold" />}
             onClick={() => {
               setStartDate(state[0].startDate)
               setEndDate(state[0].endDate)
@@ -64,12 +67,6 @@ export default function ActivityTrack({ activity }) {
           className="overflow-scroll"
         />
       </div>
-      {/* <DateRange
-        editableDateInputs={true}
-        moveRangeOnFirstSelection={false}
-        ranges={state}
-        onChange={(item) => setState([(item as any).selection])}
-      /> */}
       <ActivityChart
         activity={activity}
         startDate={startDate}
