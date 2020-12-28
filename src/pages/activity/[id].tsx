@@ -16,6 +16,7 @@ import {
   YAxis,
 } from 'recharts'
 import useBreakpoint from 'use-breakpoint'
+import ActivityDetail from '../../components/ActivityDetail'
 
 const BREAKPOINTS = {
   xs: 0,
@@ -105,6 +106,17 @@ export default function ActivityDetails() {
       count: currCount,
     }
   })
+
+  return (
+    <>
+      <Head>
+        <title>Trackr - Activity</title>
+      </Head>
+      <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
+        <ActivityDetail activity={activity} />
+      </div>
+    </>
+  )
 
   return (
     <>

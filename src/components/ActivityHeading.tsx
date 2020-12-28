@@ -28,15 +28,15 @@ export default function ActivityHeading({ activity }: { activity: Activity }) {
       )}
 
       <div className="flex justify-between items-center">
-        <div className="flex-shrink-0 h-16 w-16 rounded-full bg-brand-600 text-white flex justify-center items-center">
+        <div className="flex flex-shrink-0 h-16 w-16 rounded-full bg-brand-600 font-semibold text-2xl text-white justify-center items-center">
           {activity.title.toUpperCase().charAt(0)}
         </div>
 
-        <div className="ml-4">
-          <h1 className="text-xl md:text-2xl font-bold text-gray-900">
+        <div className="flex flex-col justify-between ml-4">
+          <h1 className="text-xl font-semibold text-gray-700">
             {activity.title}
           </h1>
-          <p className="text-sm font-medium text-gray-500">
+          <p className="text-md font-medium text-gray-500">
             {activity.description}
           </p>
         </div>
