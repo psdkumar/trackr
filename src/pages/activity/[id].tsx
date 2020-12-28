@@ -6,7 +6,15 @@ import { IconLoader } from 'tabler-icons'
 import ActivityHeading from '../../components/ActivityHeading'
 import Error from 'next/error'
 import ActivityLogHeading from '../../components/ActivityLogHeading'
-import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts'
 import useBreakpoint from 'use-breakpoint'
 
 const BREAKPOINTS = {
@@ -27,13 +35,13 @@ export default function ActivityDetails() {
     () => fetch(`/api/fauna/fetch-activity?id=${id}`).then((res) => res.json())
   )
   const data = [
-    { date: '2020-12-22', dheeraj: 1, teja: 1, amt: 2400 },
-    { date: '2020-12-23', dheeraj: 2, teja: 2, amt: 2400 },
-    { date: '2020-12-24', dheeraj: 2, teja: 3, amt: 2400 },
-    { date: '2020-12-25', dheeraj: 3, teja: 4, amt: 2400 },
-    { date: '2020-12-26', dheeraj: 3, teja: 5, amt: 2400 },
-    { date: '2020-12-27', dheeraj: 4, teja: 6, amt: 2400 },
-    { date: '2020-12-28', dheeraj: 5, teja: 7, amt: 2400 },
+    { date: '2020-12-22', dheeraj: 1, teja: 1 },
+    { date: '2020-12-23', dheeraj: 2, teja: 2 },
+    { date: '2020-12-24', dheeraj: 2, teja: 3 },
+    { date: '2020-12-25', dheeraj: 3, teja: 4 },
+    { date: '2020-12-26', dheeraj: 3, teja: 5 },
+    { date: '2020-12-27', dheeraj: 4, teja: 6 },
+    { date: '2020-12-28', dheeraj: 5, teja: 7 },
   ]
 
   if (isLoading) {
@@ -78,21 +86,27 @@ export default function ActivityDetails() {
               margin={{ top: 5, right: 30, bottom: 5, left: 0 }}
               style={{ width: '100%', height: '100%' }}
             >
-              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+              <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" />
               <YAxis />
               <Tooltip />
+              <Legend
+                width={
+                  breakpoint === 'xs' ? 500 : breakpoint === 'sm' ? 800 : 1000
+                }
+                align="center"
+              />
               <Line
-                type="monotone"
+                name="dheeraj count"
+                type="linear"
                 dataKey="dheeraj"
-                className="text-brand-500"
-                stroke="currentColor"
+                stroke="red"
               ></Line>
               <Line
-                type="monotone"
+                name="teja count"
+                type="natural"
                 dataKey="teja"
-                className="text-red-500"
-                stroke="currentColor"
+                stroke="blue"
               ></Line>
             </LineChart>
           </div>

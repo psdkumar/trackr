@@ -33,14 +33,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <div className="bg-gray-100 h-full">
-          <AppNavBar />
+        <AppNavBar />
 
-          <Component {...pageProps} />
-          {process.env.NODE_ENV !== 'production' && (
-            <ReactQueryDevtools initialIsOpen={false} />
-          )}
-        </div>
+        <Component {...pageProps} />
+        {process.env.NODE_ENV !== 'production' && (
+          <ReactQueryDevtools initialIsOpen={false} />
+        )}
       </QueryClientProvider>
     </>
   )
