@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import { Button, Input } from 'coderplex-ui'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { IconEdit } from 'tabler-icons'
@@ -10,13 +11,18 @@ export default function ActivityLogHeading({
 }: {
   activity: Activity
 }) {
+  const router = useRouter()
+  const queryClient = useQueryClient()
+
+  const [submitButtonText, setSubmitButtonText] = useState('')
   const [logActivity, setLogActivity] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const today = new Date()
   const [date, setDate] = useState(
     `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
   )
-  const [submitButtonText, setSubmitButtonText] = useState('')
-  const queryClient = useQueryClient()
+
   const { isError, isLoading, isSuccess, mutate, data: response } = useMutation(
     ['log_activity', activity.id],
     () =>
@@ -28,11 +34,12 @@ export default function ActivityLogHeading({
         body: JSON.stringify({ date: date, activityId: activity.id }),
       }),
     {
+      onSettled: () => {
+        setIsSubmitting(false)
+      },
       onSuccess: () => {
-        setSubmitButtonText('Submitted')
         setLogActivity(false)
-        // queryClient.refetchQueries(['activity', id])
-        // queryClient.refetchQueries('activities')
+        queryClient.refetchQueries(['activityLogs', router.query.id])
       },
     }
   )
@@ -61,8 +68,10 @@ export default function ActivityLogHeading({
                 type="submit"
                 variant="solid"
                 variantColor="brand"
+                isLoading={isSubmitting}
                 onClick={() => {
                   setSubmitButtonText('Submitting ...')
+                  setIsSubmitting(true)
                   mutate()
                 }}
               >

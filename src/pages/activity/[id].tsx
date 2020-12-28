@@ -26,6 +26,27 @@ const BREAKPOINTS = {
   '2xl': 1536,
 }
 
+export function formatDate({ date }: { date: Date }) {
+  let day = `${date.getDate()}`
+  let month = `${date.getMonth() + 1}`
+  let year = `${date.getFullYear()}`
+
+  if (day.length < 2) day = '0' + day
+  if (month.length < 2) month = '0' + month
+
+  return [year, month, day].join('-')
+}
+
+export function getAllRangeDates({ startDate, endDate }) {
+  const dates = []
+  let currentDate = startDate
+  while (currentDate <= endDate) {
+    dates.push(formatDate({ date: currentDate }))
+    currentDate.setDate(currentDate.getDate() + 1)
+  }
+  return dates
+}
+
 export default function ActivityDetails() {
   const { breakpoint, maxWidth, minWidth } = useBreakpoint(BREAKPOINTS, 'xs')
   const router = useRouter()
@@ -44,6 +65,12 @@ export default function ActivityDetails() {
     { date: '2020-12-28', dheeraj: 5, teja: 7 },
   ]
 
+  const { isLoading: isLogLoading, data: logData, error: logError } = useQuery(
+    ['activityLogs', router.query.id],
+    () =>
+      fetch(`/api/fauna/fetch-activity-logs?id=${id}`).then((res) => res.json())
+  )
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-full">
@@ -58,8 +85,26 @@ export default function ActivityDetails() {
   }
 
   const activity = response.activity
+  const countMap = {}
+  logData?.data?.forEach((data, index) => {
+    countMap[data[0]['@date']] = index + 1
+  })
 
-  console.log({ breakpoint, maxWidth, minWidth })
+  const allDates = getAllRangeDates({
+    startDate: new Date('2020-12-01'),
+    endDate: new Date('2020-12-31'),
+  })
+
+  let prevCount = 0
+  let currCount = 0
+  const chartData = allDates.map((date) => {
+    currCount = countMap[date] ? countMap[date] : prevCount
+    prevCount = currCount
+    return {
+      date: date,
+      count: currCount,
+    }
+  })
 
   return (
     <>
@@ -82,7 +127,7 @@ export default function ActivityDetails() {
                 breakpoint === 'xs' ? 400 : breakpoint === 'sm' ? 600 : 800
               }
               height={breakpoint === 'xs' ? 400 : 500}
-              data={data}
+              data={chartData}
               margin={{ top: 5, right: 30, bottom: 5, left: 0 }}
               style={{ width: '100%', height: '100%' }}
             >
@@ -99,15 +144,15 @@ export default function ActivityDetails() {
               <Line
                 name="dheeraj count"
                 type="linear"
-                dataKey="dheeraj"
+                dataKey="count"
                 stroke="red"
               ></Line>
-              <Line
+              {/* <Line
                 name="teja count"
                 type="natural"
                 dataKey="teja"
                 stroke="blue"
-              ></Line>
+              ></Line> */}
             </LineChart>
           </div>
         </div>
