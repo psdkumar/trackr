@@ -1,11 +1,12 @@
 import ActivityChart from './ActivityChart'
-import { DateRangePicker } from 'react-date-range'
+import classNames from 'classnames'
+import { DateRange } from 'react-date-range'
 import { useState } from 'react'
 import { addDays } from 'date-fns'
 import 'react-date-range/dist/styles.css' // main css file for date range picker
 import 'react-date-range/dist/theme/default.css' // theme css file for date range picker
 import { Button } from 'coderplex-ui'
-import { ArrowClockwise, ChartLineUp } from 'phosphor-react'
+import { ArrowClockwise, Calendar, ChartLineUp } from 'phosphor-react'
 
 export default function ActivityTrack({ activity }) {
   const today = new Date()
@@ -19,29 +20,36 @@ export default function ActivityTrack({ activity }) {
     },
   ]
   const [state, setState] = useState(defaultRange)
-  const [startDate, setStartDate] = useState(defaultStartDate)
-  const [endDate, setEndDate] = useState(defaultEndDate)
-
-  console.log({ startDate, endDate })
+  const [startDate, setStartDate] = useState(state[0].startDate)
+  const [endDate, setEndDate] = useState(state[0].endDate)
+  const [showDateRangePicker, setShowDateRangePicker] = useState(false)
 
   return (
     <>
-      <div className="flex justify-between">
+      <div className="flex flex-col sm:flex-row justify-between items-center">
         <h2 className="text-base text-gray-700">
           Cumulative Activity Tracking Chart
         </h2>
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 justify-around mt-2 sm:mt-0">
+          <Button
+            variant="outlined"
+            variantColor="brand"
+            leadingIcon={(props) => <Calendar {...props} weight="duotone" />}
+            onClick={() => {
+              setShowDateRangePicker(!showDateRangePicker)
+            }}
+          >
+            Range
+          </Button>
           <Button
             variant="outlined"
             variantColor="brand"
             leadingIcon={(props) => <ArrowClockwise {...props} weight="bold" />}
             onClick={() => {
               setState(defaultRange)
-              setStartDate(defaultStartDate)
-              setEndDate(defaultEndDate)
             }}
           >
-            Reset<span className="hidden sm:inline">&nbsp;to default</span>
+            Reset
           </Button>
           <Button
             variant="solid"
@@ -50,6 +58,7 @@ export default function ActivityTrack({ activity }) {
             onClick={() => {
               setStartDate(state[0].startDate)
               setEndDate(state[0].endDate)
+              setShowDateRangePicker(false)
             }}
           >
             Track
@@ -57,8 +66,12 @@ export default function ActivityTrack({ activity }) {
         </div>
       </div>
 
-      <div className="flex justify-center py-5">
-        <DateRangePicker
+      <div
+        className={classNames('flex justify-center py-5', {
+          hidden: !showDateRangePicker,
+        })}
+      >
+        <DateRange
           editableDateInputs={true}
           showSelectionPreview={true}
           moveRangeOnFirstSelection={false}

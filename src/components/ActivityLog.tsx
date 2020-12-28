@@ -45,7 +45,7 @@ export default function ActivityLog({ activity }: { activity: Activity }) {
   return (
     <>
       <Toaster />
-      <div className="-ml-4 -mt-2 flex items-center justify-between sm:justify-between flex-wrap sm:flex-nowrap sm:h-10">
+      <div className="-ml-4 -mt-2 flex items-center justify-center sm:justify-between flex-wrap sm:flex-nowrap sm:h-10">
         <div className="ml-4 mt-2">
           <h2 className="text-base text-gray-700">
             Log your activity completions here

@@ -31,7 +31,7 @@ export default function ActivityDetails() {
       <Head>
         <title>Trackr - Activity</title>
       </Head>
-      <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
+      <div className="max-w-6xl px-2 mx-auto sm:px-6 lg:px-8">
         <ActivityDetail activity={activity} />
       </div>
     </>
