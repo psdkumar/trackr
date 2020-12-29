@@ -72,9 +72,8 @@ export default function AppNavBar() {
                       <Menu.Item>Settings</Menu.Item>
                     </Link>
                     <Menu.Item
-                      onClick={async () => {
-                        await signOut()
-                        router.push('/')
+                      onClick={() => {
+                        signOut({ callbackUrl: '/' })
                       }}
                     >
                       Sign Out
