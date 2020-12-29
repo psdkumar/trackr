@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { Router } from 'next/router'
 import ProgressBar from '@badrap/bar-of-progress'
 import { Provider } from 'next-auth/client'
-import Footer from '../components/Footer'
+import { Footer } from '@/components'
 
 const queryClient = new QueryClient()
 
