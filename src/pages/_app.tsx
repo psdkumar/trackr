@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Router } from 'next/router'
 import ProgressBar from '@badrap/bar-of-progress'
+import { Provider } from 'next-auth/client'
 
 const queryClient = new QueryClient()
 
@@ -30,15 +31,25 @@ Router.events.on('routeChangeComplete', () => {
 Router.events.on('routeChangeError', progress.finish)
 
 function MyApp({ Component, pageProps }: AppProps) {
+  // {
+  //   <div className="flex flex-col min-h-screen">
+  //     <AppNavBar />
+  //     <div className="flex-1">
+  //       <Component {...pageProps} />
+  //     </div>
+  //     <Footer />
+  //   </div>
+  // }
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <AppNavBar />
-
-        <Component {...pageProps} />
-        {process.env.NODE_ENV !== 'production' && (
-          <ReactQueryDevtools initialIsOpen={false} />
-        )}
+        <Provider session={pageProps.session}>
+          <AppNavBar />
+          <Component {...pageProps} />
+          {process.env.NODE_ENV !== 'production' && (
+            <ReactQueryDevtools initialIsOpen={false} />
+          )}
+        </Provider>
       </QueryClientProvider>
     </>
   )
