@@ -2,7 +2,7 @@ import NextAuth, { InitOptions } from 'next-auth'
 import Providers from 'next-auth/providers'
 import { NextApiHandler } from 'next'
 import faunadb from 'faunadb'
-import Fauna from '../../../adapters/fauna'
+import Fauna from '@/adapters'
 
 const faunaClient = new faunadb.Client({
   secret: process.env.FAUNA_SECRET,
@@ -33,4 +33,11 @@ const options: InitOptions = {
   adapter: Fauna.Adapter({ faunaClient }),
 
   secret: process.env.SECRET,
+  pages: {
+    signIn: '/',
+    // signOut: '/auth/signout',
+    // error: '/auth/error', // Error code passed in query string as ?error=
+    verifyRequest: '/auth/verify-request', // (used for check email message)
+    // newUser: null, // If set, new users will be directed here on first sign in
+  },
 }

@@ -9,7 +9,6 @@ import CreateActivityModal from './CreateActivityModal'
 export default function AppNavBar() {
   const [session, loading] = useSession()
   const [openActivityModal, setOpenActivityModal] = useState(false)
-  console.log({ session })
 
   return (
     <>
