@@ -4,14 +4,25 @@ import { useQuery } from 'react-query'
 import { IconLoader } from 'tabler-icons'
 import Error from 'next/error'
 import ActivityDetail from '../../components/ActivityDetail'
+import { signIn, useSession } from 'next-auth/client'
 
 export default function ActivityDetails() {
+  const [session, loading] = useSession()
   const router = useRouter()
   const id = router.query.id
   const { isLoading, data: response } = useQuery(
     ['activity', router.query.id],
     () => fetch(`/api/fauna/fetch-activity?id=${id}`).then((res) => res.json())
   )
+
+  if (loading) {
+    return <p>Loading the website...</p>
+  }
+
+  if (!session) {
+    signIn()
+    return
+  }
 
   if (isLoading) {
     return (

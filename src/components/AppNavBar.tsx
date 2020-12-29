@@ -5,9 +5,11 @@ import Logo from './Logo'
 import Link from 'next/link'
 import { useState } from 'react'
 import CreateActivityModal from './CreateActivityModal'
+import { useRouter } from 'next/router'
 
 export default function AppNavBar() {
   const [session, loading] = useSession()
+  const router = useRouter()
   const [openActivityModal, setOpenActivityModal] = useState(false)
 
   return (
@@ -69,7 +71,14 @@ export default function AppNavBar() {
                     <Link href="/profile/settings" passHref={true}>
                       <Menu.Item>Settings</Menu.Item>
                     </Link>
-                    <Menu.Item onClick={() => signOut()}>Sign Out</Menu.Item>
+                    <Menu.Item
+                      onClick={async () => {
+                        await signOut()
+                        router.push('/')
+                      }}
+                    >
+                      Sign Out
+                    </Menu.Item>
                   </Menu>
                 </>
               ) : (
