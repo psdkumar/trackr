@@ -1,11 +1,12 @@
 import NextAuth, { InitOptions } from 'next-auth'
 import Providers from 'next-auth/providers'
-import Adapters from 'next-auth/adapters'
-
 import { NextApiHandler } from 'next'
-import { PrismaClient } from '@prisma/client'
+import faunadb from 'faunadb'
+import Fauna from '../../../adapters/fauna'
 
-const prisma = new PrismaClient()
+const faunaClient = new faunadb.Client({
+  secret: process.env.FAUNA_SECRET,
+})
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options)
 export default authHandler
@@ -15,6 +16,7 @@ const options: InitOptions = {
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
+      scope: 'user:email',
     }),
     Providers.Email({
       server: {
@@ -28,9 +30,7 @@ const options: InitOptions = {
       from: process.env.SMTP_FROM,
     }),
   ],
-  adapter: Adapters.Prisma.Adapter({
-    prisma,
-  }),
+  adapter: Fauna.Adapter({ faunaClient }),
 
   secret: process.env.SECRET,
 }

@@ -7,10 +7,9 @@ import { useState } from 'react'
 import CreateActivityModal from './CreateActivityModal'
 
 export default function AppNavBar() {
-  // const [session, loading] = useSession()
-  const loading = false
-  const session = true
+  const [session, loading] = useSession()
   const [openActivityModal, setOpenActivityModal] = useState(false)
+  console.log({ session })
 
   return (
     <>

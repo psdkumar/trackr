@@ -11,12 +11,12 @@
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|ts|tsx)\"",
     "format": "npm run prettier -- --write",
     "check-format": "npm run prettier -- --list-different",
-    "validate": "npm-run-all --parallel check-types check-format lint build"
+    "validate": "npm-run-all --parallel check-types check-format lint build",
+    "setup-db": "node ./src/adapters/fauna/setup.mjs"
   },
   "dependencies": {
     "@badrap/bar-of-progress": "^0.1.1",
     "@headlessui/react": "0.2.0",
-    "@prisma/client": "2.12.1",
     "classnames": "2.2.6",
     "coderplex-ui": "^0.0.43",
     "faunadb": "^4.0.0",
@@ -33,7 +33,6 @@
     "use-breakpoint": "^1.1.5"
   },
   "devDependencies": {
-    "@prisma/cli": "2.12.1",
     "@tailwindcss/aspect-ratio": "0.2.0",
     "@tailwindcss/forms": "0.2.1",
     "@tailwindcss/typography": "0.3.1",
