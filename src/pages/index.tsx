@@ -6,13 +6,13 @@ import React, { useEffect } from 'react'
 
 export default function Home({ csrfToken, callbackUrl }) {
   const [session, loading] = useSession()
-  const router = useRouter()
-  useEffect(() => {
-    if (loading || !session) {
-      return
-    }
-    router.push(callbackUrl)
-  }, [callbackUrl, loading, router, session])
+  // const router = useRouter()
+  // useEffect(() => {
+  //   if (loading || !session) {
+  //     return
+  //   }
+  //   router.push(callbackUrl)
+  // }, [callbackUrl, loading, router, session])
 
   if (loading) {
     return <p>loading...</p>
