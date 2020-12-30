@@ -10,7 +10,6 @@ export default function HomePage() {
     ['activities', userId],
     () => fetch(`/api/fauna/fetch-activities`).then((res) => res.json())
   )
-  // const activities = response?.data ?? []
 
   if (error) {
     return <p>Something went wrong !!!</p>

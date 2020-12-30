@@ -12,43 +12,35 @@ const FaunaCreateHandler: NextApiHandler = async (
   res: NextApiResponse
 ) => {
   try {
-    // const response = await client.query(
-    //   q.Map(
-    //     q.Paginate(q.Documents(q.Collection('activities'))),
-    //     q.Lambda(
-    //       'activityRef',
-    //       q.Let(
-    //         {
-    //           activityDoc: q.Get(q.Var('activityRef')),
-    //         },
-    //         {
-    //           id: q.Select(['ref', 'id'], q.Var('activityDoc')),
-    //           title: q.Select(['data', 'title'], q.Var('activityDoc')),
-    //           description: q.Select(
-    //             ['data', 'description'],
-    //             q.Var('activityDoc')
-    //           ),
-    //         }
-    //       )
-    //     )
-    //   )
-    // )
     const session = await getSession({ req })
     const userId = (session.user as any).id
     const response = await client.query(
-      q.Paginate(
-        q.Match(
-          q.Index('activity_by_user'),
-          q.Ref(q.Collection('user'), userId)
+      q.Map(
+        q.Paginate(
+          q.Match(
+            q.Index('activity_by_userRef'),
+            q.Ref(q.Collection('user'), userId)
+          )
+        ),
+        q.Lambda(
+          'activityRef',
+          q.Let(
+            {
+              activityDoc: q.Get(q.Var('activityRef')),
+            },
+            {
+              id: q.Select(['ref', 'id'], q.Var('activityDoc')),
+              title: q.Select(['data', 'title'], q.Var('activityDoc')),
+              description: q.Select(
+                ['data', 'description'],
+                q.Var('activityDoc')
+              ),
+            }
+          )
         )
       )
     )
-    let activityList = (response as any).data.map((x: Array<String>) => ({
-      id: x[1],
-      title: x[2],
-      description: x[3],
-    }))
-    res.status(201).json(activityList)
+    res.status(201).json((response as any).data)
   } catch (error) {
     console.error(error)
     res.status(500).json({ message: 'Something went wrong!!!' })
