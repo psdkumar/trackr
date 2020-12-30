@@ -40,4 +40,12 @@ const options: InitOptions = {
     // verifyRequest: '/auth/verify-request', // (used for check email message)
     // newUser: null, // If set, new users will be directed here on first sign in
   },
+  callbacks: {
+    session: async (session, user) => {
+      return Promise.resolve({
+        ...session,
+        user: { ...session.user, id: (user as any).id },
+      })
+    },
+  },
 }

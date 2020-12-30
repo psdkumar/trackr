@@ -1,12 +1,19 @@
 import Head from 'next/head'
 import { ActivityList } from '@/components'
 import { useQuery } from 'react-query'
+import { useSession } from 'next-auth/client'
 
 export default function HomePage() {
-  const { isLoading, error, data: response } = useQuery('activities', () =>
-    fetch('/api/fauna/fetch-activities').then((res) => res.json())
+  const [session, loading] = useSession()
+  const userId = (session?.user as any).id
+  const { isLoading, error, data: activities } = useQuery(
+    ['activities', userId],
+    () =>
+      fetch(`/api/fauna/fetch-activities?userId=${userId}`).then((res) =>
+        res.json()
+      )
   )
-  const activities = response?.data ?? []
+  // const activities = response?.data ?? []
 
   if (error) {
     return <p>Something went wrong !!!</p>

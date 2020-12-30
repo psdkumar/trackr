@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="bg-white shadow-md mt-10">
-      <div className="max-w-7xl mx-auto md:flex md:items-center md:justify-between p-4 sm:px-8 md:py-6">
+      <div className="max-w-7xl mx-auto md:flex md:items-center md:justify-between p-4 sm:px-12 md:py-6">
         <div className="flex justify-center space-x-6 md:order-2">
           <a href="/" className="text-gray-400 hover:text-blue-600">
             <span className="sr-only">Facebook</span>

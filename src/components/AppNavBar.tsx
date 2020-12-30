@@ -4,7 +4,7 @@ import { PlusCircle } from 'phosphor-react'
 import Logo from './Logo'
 import Link from 'next/link'
 import { useState } from 'react'
-import CreateActivityModal from './CreateActivityModal'
+import { CreateActivityModal } from '@/components'
 import { useRouter } from 'next/router'
 
 export default function AppNavBar() {
