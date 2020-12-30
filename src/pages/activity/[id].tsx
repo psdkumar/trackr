@@ -1,10 +1,10 @@
 import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
 import { useQuery } from 'react-query'
-import { IconLoader } from 'tabler-icons'
 import Error from 'next/error'
 import ActivityDetail from '../../components/ActivityDetail'
 import { signIn, useSession } from 'next-auth/client'
+import { Loader } from '@/components'
 
 export default function ActivityDetails() {
   const [session, loading] = useSession()
@@ -25,11 +25,7 @@ export default function ActivityDetails() {
   }
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-full">
-        <IconLoader className="animate-spin mr-3 text-brand-600" size={52} />
-      </div>
-    )
+    return <Loader />
   }
   if (!response.ok) {
     return <Error statusCode={response.statusCode} />
