@@ -1,5 +1,6 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import faunadb from 'faunadb'
+import { getSession } from 'next-auth/client'
 
 const q = faunadb.query
 const client = new faunadb.Client({
@@ -11,7 +12,9 @@ const FaunaCreateHandler: NextApiHandler = async (
   res: NextApiResponse
 ) => {
   try {
-    const { title, description, userId } = req.body
+    const session = await getSession({ req })
+    const userId = (session.user as any).id
+    const { title, description } = req.body
     const response = await client.query(
       q.Let(
         {

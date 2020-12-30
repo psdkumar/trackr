@@ -1,5 +1,6 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import faunadb from 'faunadb'
+import { getSession } from 'next-auth/client'
 
 const q = faunadb.query
 const client = new faunadb.Client({
@@ -32,11 +33,13 @@ const FaunaCreateHandler: NextApiHandler = async (
     //     )
     //   )
     // )
+    const session = await getSession({ req })
+    const userId = (session.user as any).id
     const response = await client.query(
       q.Paginate(
         q.Match(
           q.Index('activity_by_user'),
-          q.Ref(q.Collection('user'), req.query.userId)
+          q.Ref(q.Collection('user'), userId)
         )
       )
     )

@@ -8,10 +8,7 @@ export default function HomePage() {
   const userId = (session?.user as any).id
   const { isLoading, error, data: activities } = useQuery(
     ['activities', userId],
-    () =>
-      fetch(`/api/fauna/fetch-activities?userId=${userId}`).then((res) =>
-        res.json()
-      )
+    () => fetch(`/api/fauna/fetch-activities`).then((res) => res.json())
   )
   // const activities = response?.data ?? []
 

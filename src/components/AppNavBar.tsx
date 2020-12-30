@@ -5,11 +5,9 @@ import Logo from './Logo'
 import Link from 'next/link'
 import { useState } from 'react'
 import { CreateActivityModal } from '@/components'
-import { useRouter } from 'next/router'
 
 export default function AppNavBar() {
   const [session, loading] = useSession()
-  const router = useRouter()
   const [openActivityModal, setOpenActivityModal] = useState(false)
 
   return (

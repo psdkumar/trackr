@@ -2,7 +2,6 @@ import { Transition } from '@headlessui/react'
 import { useState } from 'react'
 import { Button, Input, TextArea } from 'coderplex-ui'
 import { useMutation, useQueryClient } from 'react-query'
-import { useSession } from 'next-auth/client'
 
 export default function CreateActivityModal({
   isOpen,
@@ -11,11 +10,9 @@ export default function CreateActivityModal({
   isOpen: boolean
   setIsOpen: (a: boolean) => void
 }) {
-  const [session, loading] = useSession()
   const queryClient = useQueryClient()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const userId = (session?.user as any).id
 
   const { isError, isLoading, isSuccess, mutate, data: response } = useMutation(
     'create_activity',
@@ -25,7 +22,7 @@ export default function CreateActivityModal({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, description, userId }),
+        body: JSON.stringify({ title, description }),
       }),
     {
       onSuccess: () => {
