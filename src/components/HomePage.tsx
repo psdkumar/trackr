@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { ActivityList } from '@/components'
+import { ActivityList, Title } from '@/components'
 import { useQuery } from 'react-query'
 import { useSession } from 'next-auth/client'
 
@@ -17,9 +17,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Head>
-        <title>Trackr - Home</title>
-      </Head>
+      <Title>Home</Title>
       <div className="flex flex-col min-h-full">
         <main className="relative flex-1 overflow-y-auto focus:outline-none">
           <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">

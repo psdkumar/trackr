@@ -4,13 +4,12 @@ import { IconBrandGithub } from 'tabler-icons'
 import { signIn } from 'next-auth/client'
 import { Logo } from '@/components'
 import Head from 'next/head'
+import { Title } from '@/components'
 
 export default function Login({ csrfToken, callbackUrl }) {
   return (
     <>
-      <Head>
-        <title>Trackr - Login</title>
-      </Head>
+      <Title>Login</Title>
       <div>
         <div className="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center sm:mx-auto sm:w-full sm:max-w-md">

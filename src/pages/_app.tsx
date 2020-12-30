@@ -1,13 +1,12 @@
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
 import AppNavBar from '../components/AppNavBar'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Router } from 'next/router'
 import ProgressBar from '@badrap/bar-of-progress'
 import { Provider } from 'next-auth/client'
-import { Footer } from '@/components'
+import { Footer, Title } from '@/components'
 
 const queryClient = new QueryClient()
 
@@ -31,11 +30,13 @@ Router.events.on('routeChangeComplete', () => {
 })
 Router.events.on('routeChangeError', progress.finish)
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: any) {
+  const meta = Component.layoutProps?.meta || {}
   return (
     <>
       <QueryClientProvider client={queryClient}>
         <Provider session={pageProps.session}>
+          <Title>{meta.metaTitle || meta.title}</Title>
           <div className="flex flex-col min-h-screen">
             <AppNavBar />
             <div className="flex-1">

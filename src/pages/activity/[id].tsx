@@ -35,9 +35,6 @@ export default function ActivityDetails() {
 
   return (
     <>
-      <Head>
-        <title>Trackr - Activity</title>
-      </Head>
       <div className="max-w-6xl px-2 mx-auto sm:px-6 lg:px-8">
         <ActivityDetail activity={activity} />
       </div>
@@ -49,4 +46,10 @@ export const getServerSideProps = async () => {
   return {
     props: {},
   }
+}
+
+ActivityDetails.layoutProps = {
+  meta: {
+    title: 'Activity',
+  },
 }
