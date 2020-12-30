@@ -1,3 +1,4 @@
+import { off } from 'process'
 import {
   CartesianGrid,
   Legend,
@@ -31,19 +32,24 @@ export default function ActivityChartSingle({ activityChartData }) {
         style={{ width: '100%', height: '100%' }}
         className="mt-5"
       >
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid strokeDasharray="3 3" vertical={false} />
         <XAxis dataKey="date" />
-        <YAxis />
+        <YAxis
+          label={{
+            value: 'Cumulative Activity Count',
+            angle: 270,
+          }}
+        />
         <Tooltip />
-        <Legend
+        {/* <Legend
           width={breakpoint === 'xs' ? 500 : breakpoint === 'sm' ? 800 : 1000}
           align="center"
-        />
+        /> */}
         <Line
-          name="dheeraj count"
+          name="activity count"
           type="linear"
           dataKey="count"
-          stroke="red"
+          stroke="blue"
         ></Line>
       </LineChart>
     </div>
