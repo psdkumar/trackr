@@ -16,9 +16,9 @@ export default function ActivityList({
 }) {
   return (
     <div className={isLoading ? 'animate-pulse' : ''}>
-      <h2 className="text-lg font-medium tracking-wide uppercase text-brand-600">
+      <h1 className="text-xl font-semibold uppercase text-brand-600 pb-2 pt-5 text-center">
         {title}
-      </h2>
+      </h1>
       <ul className="grid grid-cols-1 gap-5 mt-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2">
         {children}
       </ul>

@@ -20,7 +20,7 @@ export default function HomePage() {
       <div className="flex flex-col min-h-full">
         <main className="relative flex-1 overflow-y-auto focus:outline-none">
           <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
-            <div className="py-4 sm:py-6 md:py-8">
+            <div className="">
               {isLoading ? (
                 <ActivityList title="My Activities" isLoading={isLoading}>
                   <ActivityList.Skeleton />

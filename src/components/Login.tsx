@@ -8,7 +8,7 @@ export default function Login({ csrfToken, callbackUrl }) {
   return (
     <>
       <div>
-        <div className="flex flex-col justify-center min-h-screen py-12 sm:px-6 lg:px-8">
+        <div className="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center sm:mx-auto sm:w-full sm:max-w-md">
             <Logo className="hidden" size={48} />
             <h2 className="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900">
@@ -16,8 +16,8 @@ export default function Login({ csrfToken, callbackUrl }) {
             </h2>
           </div>
 
-          <div className="mt-8 mb-0 sm:mb-20 sm:mx-auto sm:w-full sm:max-w-md">
-            <div className="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+          <div className="m-3 sm:m-5 sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="px-4 py-8 bg-white shadow rounded-md sm:rounded-lg sm:px-10">
               <form action="/api/auth/signin/email" method="POST">
                 <input
                   name="csrfToken"
