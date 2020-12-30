@@ -22,7 +22,7 @@ export default function AppNavBar() {
       )}
 
       <NavBar
-        className="border-b shadow-xs"
+        className="border-b shadow-sm"
         logo={<Logo className="hidden lg:block" />}
         leftDesktopItems={
           <>
@@ -83,18 +83,11 @@ export default function AppNavBar() {
               ) : (
                 <>
                   <Button
-                    variant="ghost"
-                    variantColor="brand"
-                    onClick={() => signIn()}
-                  >
-                    Sign In
-                  </Button>
-                  <Button
                     variant="solid"
                     variantColor="brand"
                     onClick={() => signIn()}
                   >
-                    Sign Up
+                    Sign In
                   </Button>
                 </>
               ))}
