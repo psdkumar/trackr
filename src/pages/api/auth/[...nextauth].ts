@@ -18,6 +18,10 @@ const options: InitOptions = {
       clientSecret: process.env.GITHUB_SECRET,
       scope: 'user:email',
     }),
+    Providers.Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     Providers.Email({
       server: {
         host: process.env.SMTP_HOST,

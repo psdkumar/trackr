@@ -1,6 +1,6 @@
 import { Button, Input } from 'coderplex-ui'
 import { SignIn } from 'phosphor-react'
-import { IconBrandGithub } from 'tabler-icons'
+import { IconBrandGithub, IconBrandGoogle } from 'tabler-icons'
 import { signIn } from 'next-auth/client'
 import { Logo } from '@/components'
 import Head from 'next/head'
@@ -63,6 +63,15 @@ export default function Login({ csrfToken, callbackUrl }) {
                 </div>
 
                 <div className="grid grid-cols-1 gap-3 mt-6">
+                  <Button
+                    className="flex justify-center w-full"
+                    leadingIcon={IconBrandGoogle}
+                    variant="solid"
+                    variantColor="info"
+                    onClick={() => signIn('google')}
+                  >
+                    Google
+                  </Button>
                   <Button
                     className="flex justify-center w-full"
                     leadingIcon={IconBrandGithub}
