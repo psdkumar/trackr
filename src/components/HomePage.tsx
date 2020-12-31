@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { ActivityList, Title } from '@/components'
 import { useQuery } from 'react-query'
 import { useSession } from 'next-auth/client'
@@ -33,12 +32,7 @@ export default function HomePage() {
               ) : (
                 <ActivityList title="My Activities">
                   {activities.map((activity, index) => (
-                    <ActivityList.Item
-                      key={index}
-                      id={activity.id}
-                      title={activity.title}
-                      description={activity.description}
-                    />
+                    <ActivityList.Item key={index} activity={activity} />
                   ))}
                 </ActivityList>
               )}

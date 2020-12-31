@@ -35,6 +35,11 @@ const FaunaCreateHandler: NextApiHandler = async (
                 ['data', 'description'],
                 q.Var('activityDoc')
               ),
+              visibility: q.Select(
+                ['data', 'visibility'],
+                q.Var('activityDoc')
+              ),
+              state: q.Select(['data', 'state'], q.Var('activityDoc')),
             }
           )
         )

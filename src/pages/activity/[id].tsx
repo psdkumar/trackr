@@ -1,5 +1,4 @@
 import { useRouter } from 'next/dist/client/router'
-import Head from 'next/head'
 import { useQuery } from 'react-query'
 import Error from 'next/error'
 import ActivityDetail from '../../components/ActivityDetail'

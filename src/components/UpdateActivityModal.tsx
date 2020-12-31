@@ -2,7 +2,8 @@ import { Transition } from '@headlessui/react'
 import { useState } from 'react'
 import { Button, Input, TextArea } from 'coderplex-ui'
 import { useMutation, useQueryClient } from 'react-query'
-import { Activity } from '../types'
+import { Activity, ActivityVisibility } from '@/types'
+import { Toggle, CustomMenu } from '@/components'
 
 export default function UpdateActivityModal({
   isOpen,
@@ -16,6 +17,10 @@ export default function UpdateActivityModal({
   const queryClient = useQueryClient()
   const [title, setTitle] = useState(activity.title)
   const [description, setDescription] = useState(activity.description)
+  const [visibilityToggle, setVisibilityToggle] = useState(
+    activity.visibility === ActivityVisibility.PRIVATE ? false : true
+  )
+  const [state, setState] = useState(activity.state)
   const id = activity.id
 
   const { isError, isLoading, isSuccess, mutate, data: response } = useMutation(
@@ -26,7 +31,15 @@ export default function UpdateActivityModal({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id, title, description }),
+        body: JSON.stringify({
+          id,
+          title,
+          description,
+          visibility: visibilityToggle
+            ? ActivityVisibility.PUBLIC
+            : ActivityVisibility.PRIVATE,
+          state,
+        }),
       }),
     {
       onSuccess: () => {
@@ -97,6 +110,16 @@ export default function UpdateActivityModal({
                     placeholder="Brief description of your activity"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                  />
+                  {/* <CustomMenu title="State" /> */}
+                  <Toggle
+                    title="Visibility"
+                    description={[
+                      'Activity will be visible to everyone',
+                      'Activity will be visible only to you',
+                    ]}
+                    isSelected={visibilityToggle}
+                    setIsSelected={setVisibilityToggle}
                   />
                 </div>
               </div>

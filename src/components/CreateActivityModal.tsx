@@ -2,6 +2,8 @@ import { Transition } from '@headlessui/react'
 import { useState } from 'react'
 import { Button, Input, TextArea } from 'coderplex-ui'
 import { useMutation, useQueryClient } from 'react-query'
+import { Toggle } from '@/components'
+import { ActivityState, ActivityVisibility } from '@/types'
 
 export default function CreateActivityModal({
   isOpen,
@@ -13,6 +15,7 @@ export default function CreateActivityModal({
   const queryClient = useQueryClient()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [visibilityToggle, setVisibilityToggle] = useState(false)
 
   const { isError, isLoading, isSuccess, mutate, data: response } = useMutation(
     'create_activity',
@@ -22,7 +25,14 @@ export default function CreateActivityModal({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({
+          title,
+          description,
+          visibility: visibilityToggle
+            ? ActivityVisibility.PUBLIC
+            : ActivityVisibility.PRIVATE,
+          state: ActivityState.INACTIVE,
+        }),
       }),
     {
       onSuccess: () => {
@@ -92,6 +102,15 @@ export default function CreateActivityModal({
                     placeholder="Brief description of your activity"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                  />
+                  <Toggle
+                    title="Visibility"
+                    description={[
+                      'Activity will be visible to everyone',
+                      'Activity will be visible only to you',
+                    ]}
+                    isSelected={visibilityToggle}
+                    setIsSelected={setVisibilityToggle}
                   />
                 </div>
               </div>

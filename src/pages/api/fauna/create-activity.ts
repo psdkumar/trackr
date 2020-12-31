@@ -1,3 +1,4 @@
+import { ActivityState, ActivityVisibility } from '@/types'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import faunadb from 'faunadb'
 import { getSession } from 'next-auth/client'
@@ -14,7 +15,7 @@ const FaunaCreateHandler: NextApiHandler = async (
   try {
     const session = await getSession({ req })
     const userId = (session.user as any).id
-    const { title, description } = req.body
+    const { title, description, visibility, state } = req.body
     const response = await client.query(
       q.Let(
         {
@@ -22,6 +23,8 @@ const FaunaCreateHandler: NextApiHandler = async (
             data: {
               title,
               description,
+              visibility,
+              state,
               userRef: q.Ref(q.Collection('user'), userId),
             },
           }),

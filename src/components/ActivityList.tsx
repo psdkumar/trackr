@@ -1,3 +1,4 @@
+import { Activity } from '@/types'
 import classNames from 'classnames'
 import { Menu } from 'coderplex-ui'
 import Link from 'next/link'
@@ -27,18 +28,10 @@ export default function ActivityList({
   )
 }
 
-ActivityList.Item = Activity
+ActivityList.Item = ActivityCard
 ActivityList.Skeleton = ActivitySkeleton
 
-function Activity({
-  id,
-  title,
-  description,
-}: {
-  id: string
-  title: string
-  description: string
-}) {
+function ActivityCard({ activity }: { activity: Activity }) {
   const [openUpdateActivityModal, setOpenUpdateActivityModal] = useState(false)
   const [openDeleteActivityModal, setOpenDeleteActivityModal] = useState(false)
 
@@ -48,28 +41,28 @@ function Activity({
         <UpdateActivityModal
           isOpen={openUpdateActivityModal}
           setIsOpen={setOpenUpdateActivityModal}
-          activity={{ id: id, title: title, description: description }}
+          activity={activity}
         />
       )}
       {openDeleteActivityModal && (
         <DeleteActivityModal
           isOpen={openDeleteActivityModal}
           setIsOpen={setOpenDeleteActivityModal}
-          id={id}
+          id={activity.id}
         />
       )}
-      <Link href={`/activity/${id}`} passHref={true}>
+      <Link href={`/activity/${activity.id}`} passHref={true}>
         <a>
           <li className="flex col-span-1 rounded-md shadow-sm">
             <div className="flex items-center justify-center flex-shrink-0 w-16 text-sm font-medium text-white bg-brand-600 rounded-l-md">
-              {title.toUpperCase().charAt(0)}
+              {activity.title.toUpperCase().charAt(0)}
             </div>
             <div className="flex items-center justify-between flex-1 truncate bg-white border-t border-b border-gray-200">
               <div className="flex-1 px-4 py-2 text-sm truncate">
                 <p className="font-medium text-gray-900 hover:text-gray-600">
-                  {title}
+                  {activity.title}
                 </p>
-                <p className="text-gray-500">{description}</p>
+                <p className="text-gray-500">{activity.description}</p>
               </div>
             </div>
             <div
