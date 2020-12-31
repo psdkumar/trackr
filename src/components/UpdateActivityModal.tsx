@@ -45,10 +45,9 @@ export default function UpdateActivityModal({
   const [selectedState, setSelectedState] = useState(
     STATE_OPTIONS[STATE_OPTIONS_MAP[activity.state]]
   )
-  const id = activity.id
 
   const { isError, isLoading, isSuccess, mutate, data: response } = useMutation(
-    ['update_activity', id],
+    ['update_activity', activity.id],
     () =>
       fetch('/api/fauna/update-activity', {
         method: 'POST',
@@ -56,7 +55,7 @@ export default function UpdateActivityModal({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id,
+          id: activity.id,
           title,
           description,
           visibility: visibilityToggle
@@ -67,8 +66,8 @@ export default function UpdateActivityModal({
       }),
     {
       onSuccess: () => {
-        toast.success('Activity has been updated.')
-        queryClient.refetchQueries(['activity', id])
+        toast.success('Activity has been updated')
+        queryClient.refetchQueries(['activity', activity.id])
         queryClient.refetchQueries('activities')
       },
     }

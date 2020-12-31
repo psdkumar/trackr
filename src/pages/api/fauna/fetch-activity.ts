@@ -25,7 +25,7 @@ const FaunaCreateHandler: NextApiHandler = async (
         }
       )
     )
-    res.status(200).json({ activity: response, ok: true })
+    res.status(200).json({ activity: response, ok: true, statusCode: 200 })
   } catch (error) {
     res.status(error.requestResult.statusCode).json({
       message: 'Something went wrong!!!',
