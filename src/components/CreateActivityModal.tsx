@@ -4,6 +4,7 @@ import { Button, Input, TextArea } from 'coderplex-ui'
 import { useMutation, useQueryClient } from 'react-query'
 import { Toggle } from '@/components'
 import { ActivityState, ActivityVisibility } from '@/types'
+import toast from 'react-hot-toast'
 
 export default function CreateActivityModal({
   isOpen,
@@ -36,6 +37,7 @@ export default function CreateActivityModal({
       }),
     {
       onSuccess: () => {
+        toast.success('New activity has been created')
         queryClient.refetchQueries('activities')
       },
     }

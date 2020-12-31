@@ -4,6 +4,7 @@ import { Button, Input, ListBox, TextArea } from 'coderplex-ui'
 import { useMutation, useQueryClient } from 'react-query'
 import { Activity, ActivityState, ActivityVisibility } from '@/types'
 import { Toggle } from '@/components'
+import toast from 'react-hot-toast'
 
 const STATE_OPTIONS = [
   {
@@ -66,6 +67,7 @@ export default function UpdateActivityModal({
       }),
     {
       onSuccess: () => {
+        toast.success('Activity has been updated.')
         queryClient.refetchQueries(['activity', id])
         queryClient.refetchQueries('activities')
       },

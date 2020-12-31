@@ -3,7 +3,7 @@ import { Button, Input } from 'coderplex-ui'
 import { useRouter } from 'next/router'
 import { Check, X } from 'phosphor-react'
 import { useState } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import { useMutation, useQueryClient } from 'react-query'
 import { IconCircleDashed, IconEdit } from 'tabler-icons'
 import { Activity } from '../types'
@@ -44,7 +44,6 @@ export default function ActivityLog({ activity }: { activity: Activity }) {
 
   return (
     <>
-      <Toaster />
       <div className="-ml-4 -mt-2 flex items-center justify-center sm:justify-between flex-wrap sm:flex-nowrap sm:h-10">
         <div className="ml-4 mt-2">
           <h2 className="text-base text-gray-700">

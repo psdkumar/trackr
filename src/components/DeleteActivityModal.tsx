@@ -1,6 +1,7 @@
 import { Transition } from '@headlessui/react'
 import { Button } from 'coderplex-ui'
 import { useRouter } from 'next/router'
+import toast from 'react-hot-toast'
 import { useMutation, useQueryClient } from 'react-query'
 
 export default function DeleteActivityModal({
@@ -25,6 +26,7 @@ export default function DeleteActivityModal({
       }),
     {
       onSuccess: () => {
+        toast.error('Activity has been deleted.')
         queryClient.refetchQueries(['activity', id])
         queryClient.refetchQueries('activities')
         router.push('/')

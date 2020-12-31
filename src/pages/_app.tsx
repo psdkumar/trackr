@@ -7,6 +7,7 @@ import { Router } from 'next/router'
 import ProgressBar from '@badrap/bar-of-progress'
 import { Provider } from 'next-auth/client'
 import { Footer, Title } from '@/components'
+import { Toaster } from 'react-hot-toast'
 
 const queryClient = new QueryClient()
 
@@ -39,6 +40,7 @@ function MyApp({ Component, pageProps }: any) {
           <Title>{meta.metaTitle || meta.title}</Title>
           <div className="flex flex-col min-h-screen">
             <AppNavBar />
+            <Toaster />
             <div className="flex-1">
               <Component {...pageProps} />
             </div>

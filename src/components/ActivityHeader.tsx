@@ -1,10 +1,9 @@
 import { Button, Menu } from 'coderplex-ui'
 import { DotsThreeVertical, Pencil, Trash } from 'phosphor-react'
 import { useState } from 'react'
-import { IconChevronDown } from 'tabler-icons'
-import { Activity } from '../types'
-import DeleteActivityModal from './DeleteActivityModal'
-import UpdateActivityModal from './UpdateActivityModal'
+import { IconChevronDown, IconEye, IconEyeOff } from 'tabler-icons'
+import { Activity, ActivityState, ActivityVisibility } from '@/types'
+import { Badge, UpdateActivityModal, DeleteActivityModal } from '@/components'
 
 export default function ActivityHeader({ activity }: { activity: Activity }) {
   const [openUpdateActivityModal, setOpenUpdateActivityModal] = useState(false)
@@ -41,7 +40,24 @@ export default function ActivityHeader({ activity }: { activity: Activity }) {
           </p>
         </div>
 
-        <div className="ml-auto">
+        <div className="flex ml-auto space-x-3">
+          <div className="flex space-x-2 items-center">
+            {activity.visibility === ActivityVisibility.PUBLIC ? (
+              <IconEye size={18} color="gray" />
+            ) : (
+              <IconEyeOff size={18} color="gray" />
+            )}
+            <Badge
+              label={activity.state}
+              color={
+                activity.state === ActivityState.INACTIVE
+                  ? 'info'
+                  : activity.state === ActivityState.ACTIVE
+                  ? 'success'
+                  : 'warning'
+              }
+            />
+          </div>
           <Menu
             trigger={
               <>

@@ -66,6 +66,11 @@ function ActivityCard({ activity }: { activity: Activity }) {
                     {activity.title}
                   </p>
                   <div className="flex space-x-2 items-center">
+                    {activity.visibility === ActivityVisibility.PUBLIC ? (
+                      <IconEye size={14} color="gray" />
+                    ) : (
+                      <IconEyeOff size={14} color="gray" />
+                    )}
                     <Badge
                       label={activity.state}
                       color={
@@ -76,11 +81,6 @@ function ActivityCard({ activity }: { activity: Activity }) {
                           : 'warning'
                       }
                     />
-                    {activity.visibility === ActivityVisibility.PUBLIC ? (
-                      <IconEye size={14} color="gray" />
-                    ) : (
-                      <IconEyeOff size={14} color="gray" />
-                    )}
                   </div>
                 </div>
                 <p className="text-gray-500">{activity.description}</p>
