@@ -1,9 +1,30 @@
 import { Transition } from '@headlessui/react'
 import { useState } from 'react'
-import { Button, Input, TextArea } from 'coderplex-ui'
+import { Button, Input, ListBox, TextArea } from 'coderplex-ui'
 import { useMutation, useQueryClient } from 'react-query'
-import { Activity, ActivityVisibility } from '@/types'
-import { Toggle, CustomMenu } from '@/components'
+import { Activity, ActivityState, ActivityVisibility } from '@/types'
+import { Toggle } from '@/components'
+
+const STATE_OPTIONS = [
+  {
+    value: ActivityState.INACTIVE as string,
+    text: 'Inactive',
+  },
+  {
+    value: ActivityState.ACTIVE as string,
+    text: 'Active',
+  },
+  {
+    value: ActivityState.CLOSED as string,
+    text: 'Closed',
+  },
+]
+
+const STATE_OPTIONS_MAP: Record<ActivityState, number> = {
+  INACTIVE: 0,
+  ACTIVE: 1,
+  CLOSED: 2,
+}
 
 export default function UpdateActivityModal({
   isOpen,
@@ -20,7 +41,9 @@ export default function UpdateActivityModal({
   const [visibilityToggle, setVisibilityToggle] = useState(
     activity.visibility === ActivityVisibility.PRIVATE ? false : true
   )
-  const [state, setState] = useState(activity.state)
+  const [selectedState, setSelectedState] = useState(
+    STATE_OPTIONS[STATE_OPTIONS_MAP[activity.state]]
+  )
   const id = activity.id
 
   const { isError, isLoading, isSuccess, mutate, data: response } = useMutation(
@@ -38,7 +61,7 @@ export default function UpdateActivityModal({
           visibility: visibilityToggle
             ? ActivityVisibility.PUBLIC
             : ActivityVisibility.PRIVATE,
-          state,
+          state: selectedState.value,
         }),
       }),
     {
@@ -111,7 +134,12 @@ export default function UpdateActivityModal({
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
-                  {/* <CustomMenu title="State" /> */}
+                  <ListBox
+                    label="State"
+                    options={STATE_OPTIONS}
+                    selectedOption={selectedState}
+                    onOptionChange={setSelectedState}
+                  />
                   <Toggle
                     title="Visibility"
                     description={[

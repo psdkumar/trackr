@@ -1,11 +1,13 @@
-import { Activity } from '@/types'
+import { Activity, ActivityState, ActivityVisibility } from '@/types'
 import classNames from 'classnames'
 import { Menu } from 'coderplex-ui'
 import Link from 'next/link'
 import { DotsThreeVertical, Pencil, Trash } from 'phosphor-react'
 import { ReactNode, useState } from 'react'
+import { Badge } from '@/components'
 import DeleteActivityModal from './DeleteActivityModal'
 import UpdateActivityModal from './UpdateActivityModal'
+import { IconEye, IconEyeOff } from 'tabler-icons'
 
 export default function ActivityList({
   title,
@@ -58,10 +60,29 @@ function ActivityCard({ activity }: { activity: Activity }) {
               {activity.title.toUpperCase().charAt(0)}
             </div>
             <div className="flex items-center justify-between flex-1 truncate bg-white border-t border-b border-gray-200">
-              <div className="flex-1 px-4 py-2 text-sm truncate">
-                <p className="font-medium text-gray-900 hover:text-gray-600">
-                  {activity.title}
-                </p>
+              <div className="flex-1 pl-4 py-2 text-sm truncate">
+                <div className="flex justify-between">
+                  <p className="font-medium text-gray-900 hover:text-gray-600">
+                    {activity.title}
+                  </p>
+                  <div className="flex space-x-2 items-center">
+                    <Badge
+                      label={activity.state}
+                      color={
+                        activity.state === ActivityState.INACTIVE
+                          ? 'info'
+                          : activity.state === ActivityState.ACTIVE
+                          ? 'success'
+                          : 'warning'
+                      }
+                    />
+                    {activity.visibility === ActivityVisibility.PUBLIC ? (
+                      <IconEye size={14} color="gray" />
+                    ) : (
+                      <IconEyeOff size={14} color="gray" />
+                    )}
+                  </div>
+                </div>
                 <p className="text-gray-500">{activity.description}</p>
               </div>
             </div>
