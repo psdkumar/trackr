@@ -20,7 +20,7 @@ export default function ActivityLog({ activity }: { activity: Activity }) {
     `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
   )
 
-  const { mutate } = useMutation(
+  const { mutate: logActivityMutate } = useMutation(
     ['log_activity', activity.id],
     () =>
       fetch('/api/fauna/log-activity', {
@@ -103,7 +103,7 @@ export default function ActivityLog({ activity }: { activity: Activity }) {
                     onClick={() => {
                       if (!isSubmitting) {
                         setIsSubmitting(true)
-                        mutate()
+                        logActivityMutate()
                       }
                     }}
                   >
